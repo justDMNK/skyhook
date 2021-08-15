@@ -36,7 +36,7 @@ class Jira extends BaseProvider {
         // extract variable from Jira
         const issue = this.body.issue
         if (issue.fields.assignee == null) {
-            issue.fields.assignee = {displayName: 'nobody'}
+            issue.fields.assignee = { displayName: 'Unassigned' }
         }
         const user = this.body.user || { displayName: 'Anonymous' }
         const action = this.body.webhookEvent.split('_')[1]
@@ -48,20 +48,15 @@ class Jira extends BaseProvider {
         embed.title = `${issue.key} - ${issue.fields.summary}`
         embed.url = `${domain}/browse/${issue.key}`
         if (isIssue) {
-            embed.description = `${user.displayName} ${action} issue: ${embed.title} (${issue.fields.assignee.displayName})`
             embed.fields = [
                 { name: 'Action', value: `Issue ${action}`, inline: true },
                 { name: 'Author', value: user.displayName, inline: true },
-                { name: 'Assignee', value: issue.fields.assignee.displayName, inline: false },
+                { name: 'Assignee', value: issue.fields.assignee.displayName, inline: true },
             ]
-        } else  {
+        } else {
             const comment = this.body.comment
             embed.fields = [
-                {
-                    name: 'Action',
-                    value: `[Comment ${action}](${domain}/browse/${issue.key}?focusedCommentId=${comment.id})()${comment.updateAuthor.displayName}`,
-                    inline: true
-                },
+                { name: 'Action', value: `[Comment ${action}](${domain}/browse/${issue.key}?focusedCommentId=${comment.id})`, inline: true },
                 { name: 'Author', value: comment.updateAuthor.displayName, inline: true },
                 { name: 'Body', value: comment.body, inline: false },
             ]
