@@ -35,6 +35,8 @@ class Jira extends BaseProvider {
 
         // extract variable from Jira
         const issue = this.body.issue
+        const url: URL = new URL(issue.self)
+        const domain: string|RegExpMatchArray = url.pathname.match(/.+?(?=\/rest\/api)/) ?? ''
         if (issue.fields.assignee == null) {
             issue.fields.assignee = { displayName: 'Unassigned' }
         }

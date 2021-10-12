@@ -1,6 +1,6 @@
 {
   "name": "skyhook",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Parses webhooks and forwards it in the proper format to Discord",
   "scripts": {
     "tsc": "tsc",
@@ -42,10 +42,6 @@
     "luxon": "^2.0.2",
     "turndown": "^7.1.1",
     "winston": "^3.3.3"
-  },
-  "engines": {
-    "node": "14.x.x",
-    "npm": "6.14.x"
   },
   "repository": {
     "url": "https://github.com/Commit451/skyhook"
