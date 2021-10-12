@@ -8,7 +8,7 @@ import { ErrorUtil } from './util/ErrorUtil'
 import { LoggerUtil } from './util/LoggerUtil'
 
 import { AppVeyor } from './provider/Appveyor'
-import { Bintray } from './provider/Bintray'
+import { Basecamp } from './provider/Basecamp'
 import { BitBucket } from './provider/Bitbucket'
 import { BitBucketServer } from './provider/BitBucketServer'
 import { CircleCi } from './provider/CircleCi'
@@ -43,7 +43,7 @@ const app = express()
  */
 const providers = [
     AppVeyor,
-    Bintray,
+    Basecamp,
     BitBucket,
     BitBucketServer,
     CircleCi,
@@ -77,7 +77,7 @@ providers.forEach((Provider) => {
     const instance = new Provider()
     providerInstances.push(instance)
     providersMap.set(instance.getPath(), Provider)
-    console.log(`Adding provider name ${instance.getName()}`)
+    logger.debug(`Adding provider name ${instance.getName()}`)
     providerNames.push(instance.getName())
     const providerInfo = {
         name: instance.getName(),
